@@ -37,19 +37,24 @@ print(fruit3)
 # + Элемент положительный
 # + Элемент не кратен 4
 s=[1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11, 12, 13, 14, 15, -2, -3, -4, 0]
-s2=[]
+s1=[]
 #V1
 for i in s:
   if i%3==0:
-    s2.append(i)
+    s1.append(i)
   elif i%4!=0:
-    s2.append(i)
+    s1.append(i)
   elif i>0:
-    s2.append(i)
-print(s2)
+    s1.append(i)
+print(s1)
+
 #V2
-s3=[]
+s2=[]
 for i in s:
   if i%3==0 and i%4!=0 and i>0:
-    s3.append(i)
-print(sp3)
+    s2.append(i)
+print(sp2)
+
+#V3
+s3=[i for i in range(-20,21) if i%3==0 and i%4!=0 and i>0]
+print(s3)
