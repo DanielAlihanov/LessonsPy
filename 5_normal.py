@@ -24,25 +24,22 @@ import re
 
 # 1. re
 line_str = re.findall(r'[a-z]+', line)
-print('Символы в нижнем регистре с использованием модуля re: \n',line_str)
+print('RE modul: \n', line_str)
  
 # 2. No re
-# print(ord('A'), ord('Z'))
 symbol = list(map(lambda x: chr(x), list(range(65,91)))) # Преобразуем список из кодов ANSI в список букв A-Z
-line_new = list(line)
-print("!!!! "+str(line_new))
+line_list= list(line)
  
-for i, element in enumerate(line_new[:]):
+for i, element in enumerate(line_list[:]):
     for element_2 in symbol:
         if element == element_2:
-            line_new[i] = ' '
+            line_list[i] = ' '
  
-# Соединение списка в строку методом .join и разбиение строки по символу ' '
-stroka=''.join(line_new).split(' ')
+joinSTR=''.join(line_new).split(' ')
  
-line_str_2 = [i for i in stroka if i != '']
-print('Символы в нижнем регистре без использованием модуля re: \n',line_str_2)
-print('------------------------------------------------------')
+line_str_2 = [i for i in joinSTR if i != '']
+print('NO RE modul: \n',line_str_2)
+
 
 # Задание-2:
 # Вывести символы в верхнем регистре, слева от которых находятся
@@ -67,6 +64,48 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'uXBqHFjvihuNGEEFsfnMXTfptvIOlhKhyYwxLnqOsBdGvnuyEZIheApQGOXWeXoLWiDQN'\
        'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
+
+# 1. Решение с помощью re
+line_2_str = re.findall(r'[a-z]{2}([A-Z]+)[A-Z]{2}', line_2)
+print('-RE modul: \n',line_2_str)
+ 
+# 2. Решение без re
+symbol_up = list(map(lambda x: chr(x), list(range(65, 91)))) # список символов верхнего регистра A-Z
+symbol_down = list(map(lambda x: chr(x), list(range(97, 123)))) # список символов нижнего регистра a-z
+line_new = list(line_2)
+ 
+lst = []
+i = len(line_new) - 1
+# Находим  символ в верхнем регистре после которого стоят еще два символа в верхнем регистре
+while i >= 0:
+    if line_new[i] in symbol_down:
+         lst.append(line_new[i])
+    elif line_new[i] in symbol_up and i <= len(line_new) - 3 and line_new[i+1] in symbol_up and line_new[i+2] in symbol_up:
+        lst.append(line_new[i])
+    else:
+        lst.append(' ')
+    i -= 1
+lst.reverse() # Переворачиваем список
+ 
+i = 0
+lst2 = []
+registr = True  # Начальное условие поиска сортировки символов в верхнем регистре
+# Фильтрация списка.
+while i <= len(lst)-1:
+    if lst[i] in symbol_down:
+        registr = True
+    if lst[i] in symbol_up and lst[i-1] in symbol_down and lst[i-2] in symbol_down:
+        lst2.append(lst[i])
+        registr = False
+    elif lst[i] in symbol_up and registr == False:
+        lst2.append(lst[i])
+    else:
+        lst2.append(' ')
+    i += 1
+stroka=''.join(lst2).split(' ') 
+ 
+line_str_3 = [i for i in stroka if i != ''] 
+print('-No RE modul: \n',line_str_3)
 
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
