@@ -3,6 +3,7 @@
 # т.е функция ничего не возвращает, а выводит на консоль ответ самостоятельно
 # Предполагается, что 1км = 1,609 мили
 def convert(km):
+    miles=km*1.609
     print(miles)
 
 # Задание-2:
@@ -11,13 +12,13 @@ def convert(km):
 # Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
 def my_round(number, ndigits):
-    pass
-
+  number = number*(10**ndigits)+0.41
+  number = number//1
+  return number/(10**ndigits)
 
 print(my_round(2.1234567, 5))
 print(my_round(2.1999967, 5))
 print(my_round(2.9999967, 5))
-
 
 # Задание-3:
 # Дан шестизначный номер билета. Определить, является ли билет счастливым.
@@ -26,9 +27,7 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить, должна возвращать либо True,
 # ибо False (если счастливый и несчастливый соответственно)
 
-def lucky_ticket(ticket_number):
-    pass
-
+lucky_ticket  = lambda x : (lambda x : 'yes' if sum(x[:3]) == sum(x[3:]) else 'no')(list(map(int, list(str(x)))))
 
 print(lucky_ticket(123006))
 print(lucky_ticket(12321))
